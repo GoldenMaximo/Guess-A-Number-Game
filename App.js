@@ -4,10 +4,27 @@ import { Header } from './components';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOverScreen';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+
+const fetchFonts = () => {
+    return Font.loadAsync({
+        'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+        'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+    });
+};
 
 export default function App() {
     const [userNumber, setUserNumber] = useState(0);
     const [numOfRounds, setNumOfRounds] = useState(0);
+    const [dataLoaded, setDataLoaded] = useState(false);
+
+    if (!dataLoaded) {
+        return <AppLoading
+            startAsync={fetchFonts}
+            onFinish={() => setDataLoaded(true)}
+        />
+    }
 
     const configureNewGameHandler = () => {
         setNumOfRounds(0);
@@ -30,16 +47,16 @@ export default function App() {
         content = <GameOverScreen numOfRounds={numOfRounds} userNumber={userNumber} onRestart={configureNewGameHandler} />;
     }
 
-  return (
-    <View style={styles.screen}>
-        <Header title="Guess a Number" />
-        {content}
-    </View>
-  );
+    return (
+        <View style={styles.screen}>
+            <Header title="Guess a Number" />
+            {content}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
+    screen: {
+        flex: 1,
+    },
 });

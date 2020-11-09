@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { NumberContainer, Card } from '../../components';
 import { Button, Text, Alert } from 'react-native';
 import * as S from './styles';
+import * as DS from '../../components/default-styled-components';
 
 const generateRandomBetween = (min, max, exclude) => {
     min = Math.ceil(min);
@@ -45,7 +46,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
 
     return (
         <S.Screen>
-            <Text>Opponent's Guess</Text>
+            <DS.Text>Opponent's Guess</DS.Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card
                 flexDirection="row"

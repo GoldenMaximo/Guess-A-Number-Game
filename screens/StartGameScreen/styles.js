@@ -16,6 +16,7 @@ export const ButtonContainer = styled.View`
 export const Title = styled.Text`
     font-size: 20px;
     margin-vertical: 10px;
+    font-family: open-sans-bold;
 `;
 
 export const StyledButton = styled.View`

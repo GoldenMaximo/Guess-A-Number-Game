@@ -3,6 +3,7 @@ import { Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-n
 import { Card, Input, NumberContainer } from '../../components';
 import Colors from '../../constants/colors';
 import * as S from './styles';
+import * as DS from '../../components/default-styled-components';
 
 const StartGameScreen = ({ onStartGame }) => {
     const [enteredValue, setEnteredValue] = useState('');
@@ -37,7 +38,7 @@ const StartGameScreen = ({ onStartGame }) => {
 
     if (confirmed) {
         confirmedOutput = <Card marginTop='20px' alignItems="center">
-            <Text>You selected:</Text>
+            <DS.Text>You selected:</DS.Text>
             <NumberContainer>{selectedNumber}</NumberContainer>
             <Button title="START GAME" onPress={() => onStartGame(selectedNumber)} />
             </Card>
@@ -46,9 +47,9 @@ const StartGameScreen = ({ onStartGame }) => {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <S.Screen>
-                <S.Title>Start a new Game</S.Title>
+                <S.Title>Start a new Game!</S.Title>
                 <Card width="300px" alignItems="center" maxWidth="80%" >
-                    <Text>Enter a number</Text>
+                    <DS.Text>Enter a number</DS.Text>
                     <Input
                         width="50px"
                         textAlign="center"

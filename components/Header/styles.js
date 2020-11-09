@@ -13,4 +13,5 @@ export const Header = styled.View`
 export const HeaderTitle = styled.Text`
     color: black;
     font-size: 18px;
+    font-family: open-sans-bold;
 `;
