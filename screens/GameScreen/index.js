@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { NumberContainer, Card } from '../../components';
-import { Button, Text } from 'react-native';
+import { Button, Text, Alert } from 'react-native';
 import * as S from './styles';
 
 const generateRandomBetween = (min, max, exclude) => {
@@ -14,8 +14,34 @@ const generateRandomBetween = (min, max, exclude) => {
     }
 };
 
-const GameScreen = ({ userChoice }) => {
+const GameScreen = ({ userChoice, onGameOver }) => {
     const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, userChoice));
+    const [rounds, setRounds] = useState(0);
+    const currentLow = useRef(1);
+    const currentHigh = useRef(100);
+
+    useEffect(() => {
+        if (currentGuess === userChoice) {
+            onGameOver(rounds);
+        }
+    }, [currentGuess]);
+
+    const nextGuessHandler = direction => {
+        if ((direction === 'lower' && currentGuess < userChoice) || (direction === 'greater' && currentGuess > userChoice )) {
+            Alert.alert('Don\'t lie!', 'You know that this is wrong...', [{ text: 'Sorry!', style: 'cancel'}]);
+            return;
+        };
+
+        if (direction === 'lower') {
+            currentHigh.current = currentGuess;
+        } else {
+            currentLow.current = currentGuess;
+        }
+
+        const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
+        setRounds(rounds => rounds + 1);
+        setCurrentGuess(nextNumber);
+    };
 
     return (
         <S.Screen>
@@ -27,8 +53,8 @@ const GameScreen = ({ userChoice }) => {
                 marginTop="20px"
                 width="75%"
             >
-                <Button title="LOWER" onPress={() => { }} />
-                <Button title="GREATER" onPress={() => { }} />
+                <Button title="LOWER" onPress={() => nextGuessHandler('lower')} />
+                <Button title="GREATER" onPress={() => nextGuessHandler('greater')} />
             </Card>
         </S.Screen>
     );
