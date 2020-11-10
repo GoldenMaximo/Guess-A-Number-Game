@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NumberContainer, Card, MainButton } from '../../components';
-import { Button, Alert } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import * as S from './styles';
 import * as DS from '../../components/default-styled-components';
 import { Ionicons } from '@expo/vector-icons';
@@ -16,33 +16,44 @@ const generateRandomBetween = (min, max, exclude) => {
     }
 };
 
+const renderListItem = (itemData, listLength) => {
+    return (
+        <S.ListItem>
+            <DS.Text>#{listLength - itemData.index}</DS.Text>
+            <DS.Text>{itemData.item}</DS.Text>
+        </S.ListItem>
+    )
+}
+
 const GameScreen = ({ userChoice, onGameOver }) => {
-    const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, userChoice));
-    const [rounds, setRounds] = useState(0);
+    const initialGuess = generateRandomBetween(1, 100, userChoice);
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
 
     useEffect(() => {
         if (currentGuess === userChoice) {
-            onGameOver(rounds);
+            onGameOver(pastGuesses.length);
         }
     }, [currentGuess]);
 
     const nextGuessHandler = direction => {
-        if ((direction === 'lower' && currentGuess < userChoice) || (direction === 'greater' && currentGuess > userChoice )) {
-            Alert.alert('Don\'t lie!', 'You know that this is wrong...', [{ text: 'Sorry!', style: 'cancel'}]);
+        if ((direction === 'lower' && currentGuess < userChoice) || (direction === 'greater' && currentGuess > userChoice)) {
+            Alert.alert('Don\'t lie!', 'You know that this is wrong...', [{ text: 'Sorry!', style: 'cancel' }]);
             return;
         };
 
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
         } else {
-            currentLow.current = currentGuess;
+            currentLow.current = currentGuess + 1;
         }
 
         const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
-        setRounds(rounds => rounds + 1);
         setCurrentGuess(nextNumber);
+        // setRounds(rounds => rounds + 1);
+        setPastGuesses(currPastGuesses => [nextNumber.toString(), ...currPastGuesses]);
     };
 
     return (
@@ -59,9 +70,16 @@ const GameScreen = ({ userChoice, onGameOver }) => {
                     <Ionicons name="md-remove" size={24} color="white" />
                 </MainButton>
                 <MainButton onPress={() => nextGuessHandler('greater')}>
-                    <Ionicons  name="md-add" size={24} color="white" />
+                    <Ionicons name="md-add" size={24} color="white" />
                 </MainButton>
             </Card>
+            <S.ListContainer>
+                <FlatList
+                    data={pastGuesses}
+                    keyExtractor={item => item}
+                    renderItem={guess => renderListItem(guess, pastGuesses.length)}
+                />
+            </S.ListContainer>
         </S.Screen>
     );
 };
