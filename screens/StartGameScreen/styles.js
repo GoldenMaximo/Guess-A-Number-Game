@@ -13,12 +13,6 @@ export const ButtonContainer = styled.View`
     padding-horizontal: 15px;
 `;
 
-export const Title = styled.Text`
-    font-size: 20px;
-    margin-vertical: 10px;
-    font-family: open-sans-bold;
-`;
-
 export const StyledButton = styled.View`
     width: 45%;
 `;

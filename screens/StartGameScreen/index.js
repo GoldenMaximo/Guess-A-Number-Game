@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
-import { Card, Input, NumberContainer } from '../../components';
+import { Card, Input, NumberContainer, MainButton } from '../../components';
 import Colors from '../../constants/colors';
 import * as S from './styles';
 import * as DS from '../../components/default-styled-components';
@@ -40,14 +40,14 @@ const StartGameScreen = ({ onStartGame }) => {
         confirmedOutput = <Card marginTop='20px' alignItems="center">
             <DS.Text>You selected:</DS.Text>
             <NumberContainer>{selectedNumber}</NumberContainer>
-            <Button title="START GAME" onPress={() => onStartGame(selectedNumber)} />
+            <MainButton onPress={() => onStartGame(selectedNumber)}>START GAME</MainButton>
             </Card>
     };
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <S.Screen>
-                <S.Title>Start a new Game!</S.Title>
+                <DS.Title>Start a new Game!</DS.Title>
                 <Card width="300px" alignItems="center" maxWidth="80%" >
                     <DS.Text>Enter a number</DS.Text>
                     <Input

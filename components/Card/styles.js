@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
 export const Card = styled.View`
-    width: ${({ width }) => width ? width : '40%'};
-    max-width: ${({ maxWidth }) => maxWidth ? maxWidth : '80%'};
+    width: ${({ width }) => width ? width : '55%'};
+    max-width: ${({ maxWidth }) => maxWidth ? maxWidth : '90%'};
     flex-direction: ${({ flexDirection }) => flexDirection ? flexDirection : 'column'};
     align-items: ${({ alignItems }) => alignItems ? alignItems : 'flex-start'};
     justify-content: ${({ justifyContent }) => justifyContent ? justifyContent : 'flex-start'};

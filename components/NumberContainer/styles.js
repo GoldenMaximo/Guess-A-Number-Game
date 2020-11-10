@@ -14,4 +14,5 @@ export const Container = styled.View`
 export const Number = styled.Text`
     color: ${Colors.accent};
     font-size: 22px;
+    margin: 10px;
 `;

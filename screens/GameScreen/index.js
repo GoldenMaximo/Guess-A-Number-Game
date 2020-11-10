@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { NumberContainer, Card } from '../../components';
-import { Button, Text, Alert } from 'react-native';
+import { NumberContainer, Card, MainButton } from '../../components';
+import { Button, Alert } from 'react-native';
 import * as S from './styles';
 import * as DS from '../../components/default-styled-components';
 
@@ -52,10 +52,10 @@ const GameScreen = ({ userChoice, onGameOver }) => {
                 flexDirection="row"
                 justifyContent="space-around"
                 marginTop="20px"
-                width="75%"
+                width="85%"
             >
-                <Button title="LOWER" onPress={() => nextGuessHandler('lower')} />
-                <Button title="GREATER" onPress={() => nextGuessHandler('greater')} />
+                <MainButton onPress={() => nextGuessHandler('lower')}>LOWER</MainButton>
+                <MainButton onPress={() => nextGuessHandler('greater')}>GREATER</MainButton>
             </Card>
         </S.Screen>
     );
