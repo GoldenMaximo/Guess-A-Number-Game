@@ -11,5 +11,6 @@ export const Container = styled.View`
 export const Text = styled.Text`
     color: white;
     font-family: open-sans;
-    font-size: 18px;
+    font-size: 16px;
+    text-align: center;
 `;
