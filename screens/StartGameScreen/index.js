@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Card, Input, NumberContainer, MainButton } from '../../components';
 import Colors from '../../constants/colors';
 import * as S from './styles';
@@ -48,7 +48,7 @@ const StartGameScreen = ({ onStartGame }) => {
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <S.Screen>
                 <DS.Title>Start a new Game!</DS.Title>
-                <Card width="300px" alignItems="center" maxWidth="80%" >
+                <Card width="80%" alignItems="center">
                     <DS.Text>Enter a number</DS.Text>
                     <Input
                         width="50px"

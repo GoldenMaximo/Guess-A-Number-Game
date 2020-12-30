@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NumberContainer, Card, MainButton } from '../../components';
-import { Alert, FlatList } from 'react-native';
+import { Alert, FlatList, Dimensions } from 'react-native';
 import * as S from './styles';
 import * as DS from '../../components/default-styled-components';
 import { Ionicons } from '@expo/vector-icons';
@@ -63,7 +63,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
             <Card
                 flexDirection="row"
                 justifyContent="space-around"
-                marginTop="20px"
+                marginTop={Dimensions.get('window').height > 600 ? '20px' : '10px'}
                 width="85%"
             >
                 <MainButton onPress={() => nextGuessHandler('lower')}>

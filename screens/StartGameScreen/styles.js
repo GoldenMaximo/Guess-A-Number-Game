@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
 export const Screen = styled.View`
     flex: 1;
@@ -14,5 +15,7 @@ export const ButtonContainer = styled.View`
 `;
 
 export const StyledButton = styled.View`
+    /* width: ${Dimensions.get('window').width / 4}; */
+    /* % always refers to the direct parent width */
     width: 45%;
 `;

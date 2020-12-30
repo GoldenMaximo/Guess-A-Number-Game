@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import Colors from '../../constants/colors';
+import { Dimensions } from 'react-native';
 
 export const Screen = styled.View`
     flex: 1;
@@ -19,7 +20,7 @@ export const ImageContainer = styled.View`
     border-width: 3px;
     border-color: black;
     overflow: hidden;
-    margin-vertical: 30px;
+    margin-vertical: ${Dimensions.get('window').height / 60}px;
 `;
 
 export const ResultTextContainer = styled.View`
@@ -29,7 +30,7 @@ export const ResultTextContainer = styled.View`
 export const Text = styled.Text`
     font-family: open-sans;
     text-align: center;
-    font-size: 18px;
+    font-size: ${Dimensions.get('window').width > 400 ? '18' : '16'}px;
 `;
 
 export const Highlight = styled.Text`

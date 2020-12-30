@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
 export const Screen = styled.View`
     flex: 1;
@@ -18,5 +19,5 @@ export const ListItem = styled.View`
 
 export const ListContainer = styled.View`
     flex: 1;
-    width: 80%;
+    width: ${Dimensions.get('window').width > 600 ? '80%' : '85%'};
 `;
