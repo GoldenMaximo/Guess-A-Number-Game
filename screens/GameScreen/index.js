@@ -29,8 +29,23 @@ const GameScreen = ({ userChoice, onGameOver }) => {
     const initialGuess = generateRandomBetween(1, 100, userChoice);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
     const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
+    const [availableDeviceWidth, setAvailableDeviceWidth] = useState(Dimensions.get('window').width);
+    const [availableDeviceHeight, setAvailableDeviceHeight] = useState(Dimensions.get('window').height);
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
+
+    useEffect(() => {
+        const updateDimensions = () => {
+            setAvailableDeviceWidth(Dimensions.get('window').width);
+            setAvailableDeviceHeight(Dimensions.get('window').height);
+        };
+
+        Dimensions.addEventListener('change', updateDimensions);
+
+        return () => {
+            Dimensions.removeEventListener('change', updateDimensions);
+        }
+    }, []);
 
     useEffect(() => {
         if (currentGuess === userChoice) {
@@ -56,6 +71,36 @@ const GameScreen = ({ userChoice, onGameOver }) => {
         setPastGuesses(currPastGuesses => [nextNumber.toString(), ...currPastGuesses]);
     };
 
+    if (availableDeviceHeight < 500) {
+        return (
+            <S.Screen>
+                <DS.Text>Opponent's Guess</DS.Text>
+                <Card
+                    flexDirection="row"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    marginTop="10px"
+                    width="80%"
+                >
+                    <MainButton onPress={() => nextGuessHandler('lower')}>
+                        <Ionicons name="md-remove" size={24} color="white" />
+                    </MainButton>
+                    <NumberContainer>{currentGuess}</NumberContainer>
+                    <MainButton onPress={() => nextGuessHandler('greater')}>
+                        <Ionicons name="md-add" size={24} color="white" />
+                    </MainButton>
+                </Card>
+                <S.ListContainer deviceWidth={availableDeviceWidth}>
+                    <FlatList
+                        data={pastGuesses}
+                        keyExtractor={item => item}
+                        renderItem={guess => renderListItem(guess, pastGuesses.length)}
+                    />
+                </S.ListContainer>
+            </S.Screen>
+        );
+    }
+
     return (
         <S.Screen>
             <DS.Text>Opponent's Guess</DS.Text>
@@ -63,7 +108,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
             <Card
                 flexDirection="row"
                 justifyContent="space-around"
-                marginTop={Dimensions.get('window').height > 600 ? '20px' : '10px'}
+                marginTop="20px"
                 width="85%"
             >
                 <MainButton onPress={() => nextGuessHandler('lower')}>
@@ -73,7 +118,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
                     <Ionicons name="md-add" size={24} color="white" />
                 </MainButton>
             </Card>
-            <S.ListContainer>
+            <S.ListContainer deviceWidth={availableDeviceWidth}>
                 <FlatList
                     data={pastGuesses}
                     keyExtractor={item => item}

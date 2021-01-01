@@ -6,6 +6,7 @@ export const Container = styled.View`
     padding-vertical: 12px;
     padding-horizontal: 30px;
     border-radius: 25px;
+    margin-bottom: ${({ marginBottom }) => marginBottom ? marginBottom : '0px'};
 `;
 
 export const Text = styled.Text`

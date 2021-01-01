@@ -19,5 +19,5 @@ export const ListItem = styled.View`
 
 export const ListContainer = styled.View`
     flex: 1;
-    width: ${Dimensions.get('window').width > 600 ? '80%' : '85%'};
+    width: ${({ deviceWidth }) => deviceWidth > 600 ? '85%' : '80%'};
 `;
