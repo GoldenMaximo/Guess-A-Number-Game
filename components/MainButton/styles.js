@@ -15,3 +15,8 @@ export const Text = styled.Text`
     font-size: 16px;
     text-align: center;
 `;
+
+export const ButtonContainer = styled.View`
+    border-radius: 25px;
+    overflow: hidden;
+`;
