@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { NumberContainer, Card, MainButton } from '../../components';
 import { Alert, FlatList, Dimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+// import * as ScreenOrientation from 'expo-screen-orientation';
+
+import { NumberContainer, Card, MainButton } from '../../components';
 import * as S from './styles';
 import * as DS from '../../components/default-styled-components';
-import { Ionicons } from '@expo/vector-icons';
 
 const generateRandomBetween = (min, max, exclude) => {
     min = Math.ceil(min);
@@ -26,6 +28,8 @@ const renderListItem = (itemData, listLength) => {
 }
 
 const GameScreen = ({ userChoice, onGameOver }) => {
+    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+
     const initialGuess = generateRandomBetween(1, 100, userChoice);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
     const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
